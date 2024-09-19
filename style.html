@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متابعة حفظ سورة الفرقان</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl;
+            text-align: right;
+            background: linear-gradient(135deg, #f8c4d8, #f4a4b4);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        button {
+            padding: 5px 10px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .saved {
+            background-color: #4CAF50; /* لون أخضر */
+        }
+
+        .message {
+            display: inline-block;
+            margin-left: 10px;
+            color: green;
+            font-weight: bold;
+        }
+
+        .reminder {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background: #ffeb3b;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+
+        /* فقاعات التحفيز */
+        .bubble {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            animation: rise 3s ease-in infinite;
+            opacity: 0;
+        }
+
+        @keyframes rise {
+            0% {
+                bottom: 0;
+                opacity: 1;
+                transform: translateX(-50%) scale(1);
+            }
+            100% {
+                bottom: 100%;
+                opacity: 0;
+                transform: translateX(-50%) scale(0.5);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>متابعة حفظ سورة الفرقان</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>الصفحة</th>
+                    <th>حالة الحفظ</th>
+                    <th>قراءة التفسير</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>الصفحة الأولى</td>
+                    <td>
+                        <button onclick="markAsSaved(1)">تم الحفظ</button>
+                        <span id="msg-1" class="message"></span>
+                    </td>
+                    <td>
+                        <button onclick="toggleCheckbox(1)">قراءة التفسير</button>
+                        <input type="checkbox" id="chk-1" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>الصفحة الثانية</td>
+                    <td>
+                        <button onclick="markAsSaved(2)">تم الحفظ</button>
+                        <span id="msg-2" class="message"></span>
+                    </td>
+                    <td>
+                        <button onclick="toggleCheckbox(2)">قراءة التفسير</button>
+                        <input type="checkbox" id="chk-2" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>الصفحة الثالثة</td>
+                    <td>
+                        <button onclick="markAsSaved(3)">تم الحفظ</button>
+                        <span id="msg-3" class="message"></span>
+                    </td>
+                    <td>
+                        <button onclick="toggleCheckbox(3)">قراءة التفسير</button>
+                        <input type="checkbox" id="chk-3" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>الصفحة الرابعة</td>
+                    <td>
+                        <button onclick="markAsSaved(4)">تم الحفظ</button>
+                        <span id="msg-4" class="message"></span>
+                    </td>
+                    <td>
+                        <button onclick="toggleCheckbox(4)">قراءة التفسير</button>
+                        <input type="checkbox" id="chk-4" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>الصفحة الخامسة</td>
+                    <td>
+                        <button onclick="markAsSaved(5)">تم الحفظ</button>
+                        <span id="msg-5" class="message"></span>
+                    </td>
+                    <td>
+                        <button onclick="toggleCheckbox(5)">قراءة التفسير</button>
+                        <input type="checkbox" id="chk-5" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>الصفحة السادسة</td>
+                    <td>
+                        <button onclick="markAsSaved(6)">تم الحفظ</button>
+                        <span id="msg-6" class="message"></span>
+                    </td>
+                    <td>
+                        <button onclick="toggleCheckbox(6)">قراءة التفسير</button>
+                        <input type="checkbox" id="chk-6" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>الصفحة السابعة</td>
+                    <td>
+                        <button onclick="markAsSaved(7)">تم الحفظ</button>
+                        <span id="msg-7" class="message"></span>
+                    </td>
+                    <td>
+                        <button onclick="toggleCheckbox(7)">قراءة التفسير</button>
+                        <input type="checkbox" id="chk-7" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="reminder" class="reminder"></div>
+    <script>
+        function markAsSaved(pageNumber) {
+            const button = document.querySelector(`#msg-${pageNumber}`).previousElementSibling;
+            button.classList.add('saved');
+            const messageSpan = document.getElementById(`msg-${pageNumber}`);
+            messageSpan.innerText = "أحسنت بارك الله فيك!";
+            showReminder("يقال لصاحب القرآن: اقرأ وارق ورتل كما كنت ترتل في الدنيا فإن منزلتك عند آخر آية تقرؤها");
+            showBubbles(); // عرض فقاعات التحفيز
+            setTimeout(() => {
+                messageSpan.innerText = "";
+            }, 3000); // تختفي الرسالة بعد 3 ثواني
+        }
+
+        function toggleCheckbox(pageNumber) {
+            const checkbox = document.getElementById(`chk-${pageNumber}`);
+            checkbox.checked = !checkbox.checked; // يغير حالة التحديد
+        }
+
+        function showReminder(message) {
+            const reminderDiv = document.getElementById('reminder');
+            reminderDiv.innerText = message;
+            reminderDiv.style.display = 'block';
+            setTimeout(() => {
+                reminderDiv.style.display = 'none';
+            }, 5000); // تختفي التذكير بعد 5 ثوانٍ
+        }
+
+        function showBubbles() {
+            for (let i = 0; i < 20; i++) {
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+                document.body.appendChild(bubble);
+                bubble.style.left = `${Math.random() * 100}%`;
+                bubble.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                setTimeout(() => {
+                    bubble.remove();
+                }, 3000); // تختفي الفقاعات بعد 3 ثوانٍ
+            }
+        }
+    </script>
+</body>
+</html>
