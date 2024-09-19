@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متابعة حفظ سورة الفرقان</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl;
+            text-align: right;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        button {
+            padding: 5px 10px;
+            margin-right: 10px;
+        }
+
+        .message {
+            display: inline-block;
+            margin-left: 10px;
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>متابعة حفظ سورة الفرقان</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>الصفحة</th>
+                    <th>حالة الحفظ</th>
+                    <th>التفسير</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>الصفحة 1</td>
+                    <td>
+                        <button onclick="markAsSaved(1)">تم الحفظ</button>
+                        <span id="msg-1" class="message"></span>
+                    </td>
+                    <td>
+                        <button onclick="toggleCheckbox(1)">عرض التفسير</button>
+                        <input type="checkbox" id="chk-1" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>الصفحة 2</td>
+                    <td>
+                        <button onclick="markAsSaved(2)">تم الحفظ</button>
+                        <span id="msg-2" class="message"></span>
+                    </td>
+                    <td>
+                        <button onclick="toggleCheckbox(2)">عرض التفسير</button>
+                        <input type="checkbox" id="chk-2" />
+                    </td>
+                </tr>
+                <!-- أضف المزيد من الصفحات بنفس النمط -->
+            </tbody>
+        </table>
+    </div>
+    <script>
+        function markAsSaved(pageNumber) {
+            const messageSpan = document.getElementById(`msg-${pageNumber}`);
+            messageSpan.innerText = "تم الحفظ بنجاح!";
+            setTimeout(() => {
+                messageSpan.innerText = "";
+            }, 3000); // تختفي الرسالة بعد 3 ثواني
+        }
+
+        function toggleCheckbox(pageNumber) {
+            const checkbox = document.getElementById(`chk-${pageNumber}`);
+            checkbox.checked = !checkbox.checked; // يغير حالة التحديد
+        }
+    </script>
+</body>
+</html>
